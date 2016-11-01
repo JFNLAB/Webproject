@@ -22,6 +22,7 @@ background: transparent;
 #buscar{
 	margin-left: 20%;
 	margin-right: 25%;
+	color: black;
 }
 
 .login{
@@ -41,3 +42,7 @@ background: transparent;
 #titulo{
 	color:black;
 }
+
+ .parallax-container {
+      height: 1000px;
+    }
