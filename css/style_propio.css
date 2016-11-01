@@ -1,15 +1,12 @@
 .card-content{
-	font-size: 23px;
-	
+	font-size: 23px;	
 }
 
 .dropdown-button{
 	font-size: 30px;
+	color: black;
 }
-#titulo{
-	font-size: 25px;
-	
-}
+
 .sign_up{
 width:75%;
 margin:auto;
@@ -17,11 +14,30 @@ background: transparent;
 }
 
 .center{
-text-align: center;
-font-size:35px;
-
+	margin-top:20%;
+	font-size: 20px;
+	text-align: center;
 }
+
 #buscar{
 	margin-left: 20%;
 	margin-right: 25%;
+}
+
+.login{
+	size: 100px;
+	background: transparent;
+	width: 30%;
+	margin: auto;
+}
+
+
+#logo{
+	margin-right: 10.5%;
+	width:90px;
+	height:70px;
+}
+
+#titulo{
+	color:black;
 }
