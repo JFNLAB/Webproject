@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8"> 
-		<link href="css/materialize.min.css" type="text/css" rel="stylesheet" />
+		<link href="lib/materialize/materialize.min.css" type="text/css" rel="stylesheet" />
 		<link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link href="css/style_propio.css" type="text/css" rel="stylesheet" />
@@ -25,15 +25,47 @@
 		</ul>
 		<nav>
 		  <div class="nav-wrapper yellow">
-		    <a href="index.html" class="brand-logo right">Almacén Liberado</a>
+
+		    <a href="index.html" id="" class="brand-logo right"><img src="img/logo.png" style="width:70px;height:70px;"></img>JFN SHOP</a>
 		    <ul class="leftS hide-on-med-and-down">
-		      	      <!-- Dropdown Trigger -->
 		      <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Categorias<i class="material-icons right">arrow_drop_down</i></a></li>
 		    </ul>
 		  </div>
 		</nav>
 	</nav>
+	
+	<div class="login"> 
+	<div class="z-depth-3">
+	
+		<p class="center">Debes ingresar para poder comprar</p>
+
+      
+    
+  <div class="row">
+    <form class="col s12">
+      <div class="row">       
+        <div class="input-field col s6">
+          <input id="last_name" type="text" class="validate">
+          <label for="last_name">User Name</label>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="password" type="password" class="validate">
+          <label for="password">Password</label>
+        </div>
+      </div>
+      <center><a class="waves-effect waves-light btn"><i class="material-icons right">perm_identity</i>LogIn</a></center>
+      <br>
+    </form>
+  </div>
+  </div>
+        
+	</div>
+	
 	</body>
-	<script src="js/jquery-2.2.4.min.js"></script>
-	<script src="js/materialize.min.js"></script>
+	<script src="lib/jquery-2.2.4.min.js"></script>
+	<script src="lib/materialize/materialize.min.js"></script>
+	<script type="text/javascript" src="js/scripts.js"></script>
 </html>

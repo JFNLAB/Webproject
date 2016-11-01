@@ -1,1 +1,3 @@
-function() {}
+function function_name (argument) {
+	
+}
