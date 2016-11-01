@@ -13,15 +13,5 @@
 .sign_up{
 width:75%;
 margin:auto;
-background: transparent;
-}
-
-.center{
-text-align: center;
-font-size:35px;
-
-}
-#buscar{
-	margin-left: 20%;
-	margin-right: 25%;
+background-color: gray;
 }
