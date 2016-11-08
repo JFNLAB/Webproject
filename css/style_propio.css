@@ -39,9 +39,9 @@
 }
 
 .categoria{
+	font-family:sans-serif;
 	font-size: 33px;
 	text-align: center;
-	font-family: sans-serif;
 	font-variant: small-caps;
 	font-weight: bold;
 }
