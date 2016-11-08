@@ -38,6 +38,10 @@
 	color:black;
 }
 
- .parallax-container {
-      height: 1000px;
-    }
+.categoria{
+	font-size: 33px;
+	text-align: center;
+	font-family: sans-serif;
+	font-variant: small-caps;
+	font-weight: bold;
+}
