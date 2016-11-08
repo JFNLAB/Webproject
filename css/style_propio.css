@@ -7,12 +7,6 @@
 	color: black;
 }
 
-.sign_up{
-width:75%;
-margin:auto;
-background: transparent;
-}
-
 .center{
 	margin-top:20%;
 	font-size: 20px;
@@ -30,6 +24,7 @@ background: transparent;
 	background-color: #CCCCCC;
 	width: 30%;
 	margin: auto;
+	bottom: 20%;
 }
 
 
