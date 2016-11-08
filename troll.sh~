@@ -12,5 +12,4 @@ echo "trolleado x2"
 sleep 2
 echo "guardando usuarios en fire base"
 sleep 1
-echo "ahre"
 eject
