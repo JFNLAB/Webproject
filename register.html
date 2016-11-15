@@ -7,6 +7,19 @@
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link href="css/style_propio.css" type="text/css" rel="stylesheet" />
 		<title>Compras y Ventas</title>
+		<script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+	<script>
+// Initialize Firebase
+var config = {
+	apiKey: "AIzaSyAeY5ekmTdQKT5nQj_BFdO_t4l9g1gw1CQ",
+	authDomain: "just-for-now-shop.firebaseapp.com",
+	databaseURL: "https://just-for-now-shop.firebaseio.com",
+	storageBucket: "just-for-now-shop.appspot.com",
+	messagingSenderId: "309599821973",
+	GoogleAuthProvider: "Du1pewHMg125Pl2kN1_r8mu4"
+};
+firebase.initializeApp(config);
+</script>
 	</head>
 	<body background="img/fondo.jpg">
 		
@@ -47,34 +60,25 @@
 			 <form class="col s12">
 		      <div class="row">
 		        <div class="input-field col s6">
-		          <input id="first_name" type="text" class="validate">
-		          <label for="first_name">First Name</label>
+		          <input id="usuario" type="text" class="validate">
+		          <label for="usuario">Usuario</label>
 		        </div>
-		        <div class="input-field col s6">
-		          <input id="last_name" type="text" class="validate">
-		          <label for="last_name">Last Name</label>
-		        </div>
-		      </div>
+      			<div class="row">
+					<div class="input-field col s12">
+					<input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email">
+					<label for="email">Email</label>
+					</div>
 		      <div class="row">
 		        <div class="input-field col s12">
-		          <input id="password" type="password" class="validate">
+		          <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password">
 		          <label for="password">Password</label>
 		        </div>
 		      </div>
-		        <div class="row">
-				    <div class="input-field col s12">
-				      <input id="password2" type="password" class="validate">
-				      <label for="password2">Repeat Password</label>
-				    </div>
-				  </div>
-		      <div class="row">
-		        <div class="input-field col s12">
-		          <input id="email" type="email" class="validate">
-		          <label for="email">Email</label>
-		        </div>
+
 		      </div>
 		      </div>
-		      <center><a href="index.html" class="waves-effect waves-light btn"><i class="material-icons right">assignment_ind</i>Registrarse</a></center><br>
+		      <center>&nbsp;&nbsp;&nbsp;
+          <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup">Sign Up</button></center><br>
 
 		    </form>
 		   </div>
@@ -85,4 +89,84 @@
 	<script src="lib/jquery-2.2.4.min.js"></script>
 	<script src="lib/materialize/materialize.min.js"></script>
 	<script type="text/javascript" src="js/scripts.js"></script>
+	<script>
+
+
+
+function register() {
+      var email = document.getElementById('email').value;
+      var password = document.getElementById('password').value;
+      if (email.length < 4) {
+        alert('Please enter an email address.');
+        return;
+      }
+      if (password.length < 4) {
+        alert('Please enter a password.');
+        return;
+      }
+      // Sign in with email and pass.
+      // [START createwithemail]
+      firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // [START_EXCLUDE]
+        if (errorCode == 'auth/weak-password') {
+          alert('The password is too weak.');
+        } else {
+          alert(errorMessage);
+        }
+        console.log(error);
+        // [END_EXCLUDE]
+      });
+      // [END createwithemail]
+    }
+function initApp() {
+      // Listening for auth state changes.
+      // [START authstatelistener]
+      firebase.auth().onAuthStateChanged(function(user) {
+        // [START_EXCLUDE silent]
+        document.getElementById('quickstart-verify-email').disabled = true;
+        // [END_EXCLUDE]
+        if (user) {
+          // User is signed in.
+          var displayName = user.displayName;
+          var email = user.email;
+          var emailVerified = user.emailVerified;
+          var photoURL = user.photoURL;
+          var isAnonymous = user.isAnonymous;
+          var uid = user.uid;
+          var providerData = user.providerData;
+          // [START_EXCLUDE silent]
+          document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
+          document.getElementById('quickstart-sign-in').textContent = 'Sign out';
+          document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
+          if (!emailVerified) {
+            document.getElementById('quickstart-verify-email').disabled = false;
+          }
+          // [END_EXCLUDE]
+        } else {
+          // User is signed out.
+          // [START_EXCLUDE silent]
+          document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
+          document.getElementById('quickstart-sign-in').textContent = 'Sign in';
+          document.getElementById('quickstart-account-details').textContent = 'null';
+          // [END_EXCLUDE]
+        }
+        // [START_EXCLUDE silent]
+        document.getElementById('quickstart-sign-in').disabled = false;
+        // [END_EXCLUDE]
+      });
+      // [END authstatelistener]
+
+      document.getElementById('quickstart-sign-in').addEventListener('click', register, false);
+      document.getElementById('quickstart-sign-up').addEventListener('click', handleSignUp, false);
+      document.getElementById('quickstart-verify-email').addEventListener('click', sendEmailVerification, false);
+      document.getElementById('quickstart-password-reset').addEventListener('click', sendPasswordReset, false);
+    }
+
+    window.onload = function() {
+      initApp();
+    };
+</script>
 </html>
