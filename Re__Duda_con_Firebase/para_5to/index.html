@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+    <!--
+  * Please see the included README.md file for license terms and conditions.
+  -->
+
+    <head>
+        <link rel="stylesheet" type="text/css" href="icon-fonts/font-awesome-4.3.0/css/font-awesome.css">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="simplex/css/simplex.min.css" class="uib-framework-theme">
+        <title>Blank App Designer Cordova Web App Project Template</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+        <!--
+  * The "meta viewport" tag (below) helps your app size appropriately to a device's ideal viewport.
+  * Note that Windows device viewports work better when initialized using the @viewport CSS rule.
+  * For a quick overview of "meta viewport" and @viewport, see this article:
+  *   http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/quick-tip-dont-forget-the-viewport-meta-tag
+  * To see how it works, try your app on a real device with and without a "meta viewport" tag.
+  * Additional useful references include:
+  *   http://www.quirksmode.org/mobile/viewports.html
+  *   http://www.quirksmode.org/mobile/metaviewport/devices.html
+  *   https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html
+-->
+
+        <!-- <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1"> -->
+        <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=no">
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1, maximum-scale=2"> -->
+
+        <style>
+            /* following three (cascaded) are equivalent to above three meta viewport statements */
+            /* see http://www.quirksmode.org/blog/archives/2014/05/html5_dev_conf.html */
+            /* see http://dev.w3.org/csswg/css-device-adapt/ */
+                @-ms-viewport { width: 100vw ; min-zoom: 100% ; zoom: 100% ; }          @viewport { width: 100vw ; min-zoom: 100% zoom: 100% ; }
+                @-ms-viewport { user-zoom: fixed ; min-zoom: 100% ; }                   @viewport { user-zoom: fixed ; min-zoom: 100% ; }
+                /*@-ms-viewport { user-zoom: zoom ; min-zoom: 100% ; max-zoom: 200% ; }   @viewport { user-zoom: zoom ; min-zoom: 100% ; max-zoom: 200% ; }*/
+            H2{color:black}
+        </style>
+
+        <style>
+
+            /*=== 3. Text Outside the Box ===*/
+            .etc-login-form {
+              color: #919191;
+              padding: 10px 20px;
+            }
+            .etc-login-form p {
+              margin-bottom: 5px;
+            }
+            /*=== 4. Main Form ===*/
+            .login-form-1 {
+              width: 80%;
+              max-width: 330px;
+              border-radius: 5px;
+              display: inline-block;
+            }
+            .main-login-form {
+              position: relative;
+            }
+            .login-form-1 .form-control {
+              border: 0;
+              box-shadow: 0 0 0;
+              border-radius: 0;
+              background: transparent;
+              color: #555555;
+              padding: 7px 0;
+              font-weight: bold;
+              height:auto;
+            }
+            .login-form-1 .form-control::-webkit-input-placeholder {
+              color: #999999;
+            }
+            .login-form-1 .form-control:-moz-placeholder,
+            .login-form-1 .form-control::-moz-placeholder,
+            .login-form-1 .form-control:-ms-input-placeholder {
+              color: #999999;
+            }
+            .login-form-1 .form-group {
+              margin-bottom: 0;
+              border-bottom: 2px solid #efefef;
+              padding-right: 20px;
+              position: relative;
+            }
+            .login-form-1 .form-group:last-child {
+              border-bottom: 0;
+            }
+            .login-group {
+              background: #ffffff;
+              color: #999999;
+              border-radius: 8px;
+              padding: 10px 20px;
+            }
+            .login-group-checkbox {
+              padding: 5px 0;
+            }
+            /*=== 5. Login Button ===*/
+            .login-form-1 .login-button {
+              position: absolute;
+              right: -25px;
+              top: 50%;
+              background: #ffffff;
+              color: #999999;
+              padding: 11px 0;
+              width: 50px;
+              height: 50px;
+              margin-top: -25px;
+              border: 5px solid #efefef;
+              border-radius: 50%;
+              transition: all ease-in-out 500ms;
+            }
+            .login-form-1 .login-button:hover {
+              color: #555555;
+              transform: rotate(450deg);
+            }
+            .login-form-1 .login-button.clicked {
+              color: #555555;
+            }
+            .login-form-1 .login-button.clicked:hover {
+              transform: none;
+            }
+            .login-form-1 .login-button.clicked.success {
+              color: #2ecc71;
+            }
+            .login-form-1 .login-button.clicked.error {
+              color: #e74c3c;
+            }
+        </style>
+
+        <link rel="stylesheet" href="css/app.css">
+        <link rel="stylesheet" type="text/css" href="css/index_main.less.css" class="main-less">
+
+        <!-- IMPORTANT: Do not include a weinre script tag as part of your release builds! -->
+        <!-- Place your remote debugging (weinre) script URL from the Test tab here, if it does not work below -->
+        <!-- <script src="http://debug-software.intel.com/target/target-script-min.js#insertabiglongfunkynumberfromthexdkstesttab"></script> -->
+
+        <!-- Recommended location for your JavaScript libraries -->
+        <!-- These library references (below) are just examples to give you the general idea... -->
+        <!-- <script src="lib/mc/hammer.js"></script> -->
+        <!-- <script src="lib/ft/fastclick.js"></script> -->
+
+        <!--
+  * cordova.js is a phantom lib for "Cordova HTML5 web app," it does nothing in a "Standard HTML5 web app"
+  * Seeing a "Failed to load resource: net::ERR_FILE_NOT_FOUND" message caused by this "cordova.js" script?
+  * The cordova.js script is required if you convert your "Standard HTML5" project into a "Cordova" project.
+  * You can safely ignore the error or comment out this line if you will not be developing a Cordova app.
+-->
+        <script src="cordova.js" id="xdkJScordova_"></script>
+       
+
+        <!-- for your event code, see README and file comments for details -->
+        <script src="js/init-app.js"></script>
+        <!-- for your init code, see README and file comments for details -->
+        <script src="xdk/init-dev.js"></script>
+        <!-- normalizes device and document ready events, see file for details -->
+        <script type="application/javascript" src="lib/jquery.min.js"></script>
+        <script type="application/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+        <script type="application/javascript" src="xdk/appdesigner/js/rest-of-space.js"></script>
+        <script type="application/javascript" src="marginal/marginal-position.min.js"></script>
+
+
+    </head>
+
+    <body>
+        <!-- IMPORTANT: Do not include a weinre script tag as part of your release builds! -->
+        <!-- Place your remote debugging (weinre) script URL from the Test tab here, if it does not work above -->
+        <!-- <script src="http://debug-software.intel.com/target/target-script-min.js#insertabiglongfunkynumberfromthexdkstesttab"></script> -->
+        <div class="upage bg" id="loginpage" >
+            <div class="upage-outer">
+
+                <div class="uib-header header-bg container-group inner-element uib_w_32 green-text" data-uib="layout/header" data-ver="0" id="header">
+                    <h2 class="green-text"> SISTEMA DE VENTAS</h2>
+
+                    <div class="widget-container wrapping-col single-centered">
+
+                    </div>
+                    <div class="widget-container content-area horiz-area wrapping-col left">
+                        <img src="img/icon.png">
+                    </div>
+                    <div class="widget-container content-area horiz-area wrapping-col right"></div>
+                </div>
+                <!-- Main Form -->
+                <div class="text-center" style="padding:50px 0">
+                    <div class="login-form-1">
+
+                        <div class="login-form-main-message"></div>
+                        <div class="main-login-form">
+                            <div class="login-group">
+                                <div class="form-group">
+                                    <label for="email" class="sr-only">Email</label>
+                                    <input type="text" class="form-control" id="email" name="email" placeholder="email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="sr-only">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="password">
+                                </div>
+
+                            </div>
+                            <button id="sign-in-button" type="submit" class="login-button"><i class="fa fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <br><br><br><br><br>
+                        <i id='loading' class="fa fa-refresh fa-spin fa-5x fa-fw" style='color: black'></i>
+                        <!--
+                            <div class="etc-login-form">
+                                <p>forgot your password? <a href="#">click here</a>
+                                </p>
+                                <p>new user? <a href="#">create new account</a>
+                                </p>
+                            </div> -->
+
+                    </div>
+                    <!-- end:Main Form -->
+                </div>
+            </div>
+
+        </div>
+        <!-- /container -->
+        <div class="upage" id="mainpage" style="display: none">
+
+            <div class="upage-outer">
+                <div class="uib-header header-bg container-group inner-element uib_w_32 green-text" data-uib="layout/header" data-ver="0" id="header">
+                    <h2 class="green-text"> SISTEMA DE VENTAS</h2>
+
+                    <div class="widget-container wrapping-col single-centered">
+
+                    </div>
+                    <div class="widget-container content-area horiz-area wrapping-col left">
+                        <img src="img/icon.png">
+                    </div>
+                    <div class="widget-container content-area horiz-area wrapping-col right">
+
+                           <i id='refresh' class="fa fa-refresh fa-3x fa-fw" style='color: white'></i>
+                    </div>
+                </div>
+                <div class="upage-content ac0 content-area vertical-col left" id="page_82_59">
+                    <ul class="nav widget uib_w_1 nav-tabs d-margins" role="tablist" data-uib="twitter%20bootstrap/tab_bar" data-ver="1">
+                        <li role="presentation" class="widget uib_w_2 active" data-uib="twitter%20bootstrap/tab_item" data-ver="1" id="btn_tab_ventas"><a role="tab" data-toggle="tab" href="#tab_ventas">Ventas</a>
+                        </li>
+                        <li role="presentation" class="widget uib_w_3" data-uib="twitter%20bootstrap/tab_item" data-ver="1" id="btn_tab_clientes"><a role="tab" data-toggle="tab" href="#tab_clientes">Clientes</a>
+                        </li>
+                        <li role="presentation" class="widget uib_w_4" data-uib="twitter%20bootstrap/tab_item" data-ver="1" id="logout"><a role="tab" data-toggle="tab">Salir</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content widget uib_w_5 d-margins bg" data-uib="twitter%20bootstrap/tabs" data-ver="1">
+                        <div role="tabpanel" id="tab_ventas" class="col uib_col_1 tab-pane style-72 active" data-uib="layout/col" data-ver="0">
+                            <div class="widget-container content-area vertical-col left">
+                                <div class="table-thing widget uib_w_14 d-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
+                                    <label class="narrow-control label-inline" for="date">Fecha</label>
+                                    <input class="wide-control form-control default" type="date" id="date">
+                                </div>
+                                <ul class="nav widget uib_w_6 d-margins nav-pills" role="tablist" data-uib="twitter%20bootstrap/tab_bar" data-ver="1">
+
+                                    <li role="presentation" class="widget uib_w_7 active" data-uib="twitter%20bootstrap/tab_item" data-ver="1"><a id="venta_list_btn" role="tab" data-toggle="pill" href="#ventas-lista">Lista</a>
+                                    </li>
+                                    <li role="presentation" class="widget uib_w_8" data-uib="twitter%20bootstrap/tab_item" data-ver="1"><a role="tab" data-toggle="pill" href="#ventas-nueva">Agregar</a>
+                                    </li>
+                                    <li role="presentation" class="widget uib_w_99" data-uib="twitter%20bootstrap/tab_item" data-ver="1"><a id="venta_total_btn" role="tab" data-toggle="pill" href="#ventas_total">Total</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content widget uib_w_9 d-margins" data-uib="twitter%20bootstrap/tabs" data-ver="1">
+                                    <div id="ventas-lista" role="tabpanel" class="col uib_col_9 tab-pane fade active in" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <div id="ventas_list" class="list-group widget uib_w_10 d-margins" data-uib="twitter%20bootstrap/list_group" data-ver="1">
+
+                                            </div>
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" id="ventas-nueva" class="col uib_col_15 tab-pane fade" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <div class="table-thing widget uib_w_15 d-margins" data-uib="twitter%20bootstrap/select" data-ver="1">
+                                                <label class="narrow-control label-inline">Tipo de Venta</label>
+                                                <select id="add_venta_tipo" class="wide-control form-control default">
+                                                    <option value="">------</option>
+                                                    <option value="Prepiza">Prepiza</option>
+                                                    <option value="Lomo">Lomo</option>
+                                                    <option value="Tipo Arabe">Tipo Arabe</option>
+                                                </select>
+                                            </div>
+                                            <div class="table-thing widget uib_w_16 d-margins" data-uib="twitter%20bootstrap/select" data-ver="1">
+                                                <label class="narrow-control label-inline">Cliente</label>
+                                                <select id="add_venta_cliente" class="wide-control form-control default">
+                                                    <option>------</option>
+                                                </select>
+                                            </div>
+                                            <div class="table-thing widget uib_w_17 d-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
+                                                <label class="narrow-control label-inline">Cantidad</label>
+                                                <input id="add_venta_cantidad" class="wide-control form-control default" type="number" min="1" value="1">
+                                            </div>
+                                            <button class="btn widget uib_w_18 d-margins btn-success" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn-add-sell"><i class="fa fa-save" data-position="icon only"></i>
+                                            </button>
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                    <div id="ventas_total" role="tabpanel" class="col uib_col_9 tab-pane fade" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <div id="ventas_total_pane" class="list-group widget uib_w_10 d-margins" data-uib="twitter%20bootstrap/list_group" data-ver="1">
+
+                                            </div>
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <span class="uib_shim"></span>
+                            </div>
+                        </div>
+
+                        <div role="tabpanel" id="tab_clientes" class="col uib_col_2 tab-pane bg" data-uib="layout/col" data-ver="0">
+                            <div class="widget-container content-area vertical-col">
+                                <ul class="nav widget uib_w_19 d-margins nav-pills" role="tablist" data-uib="twitter%20bootstrap/tab_bar" data-ver="1">
+                                    <li role="presentation" class="widget uib_w_20 active" data-uib="twitter%20bootstrap/tab_item" data-ver="1"><a role="tab" data-toggle="pill" href="#clientes-lista" id="cliente_list_btn">Clientes</a>
+                                    </li>
+                                    <li role="presentation" class="widget uib_w_21" data-uib="twitter%20bootstrap/tab_item" data-ver="1"><a role="tab" data-toggle="pill" href="#clientes-nuevos">Nuevo</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content widget uib_w_23 d-margins" data-uib="twitter%20bootstrap/tabs" data-ver="1">
+                                    <div role="tabpanel" id="clientes-lista" class="col uib_col_32 tab-pane fade active in" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <div id="client_list" class="list-group widget uib_w_24 d-margins" data-uib="twitter%20bootstrap/list_group" data-ver="1">
+                                                <a class="list-group-item allow-badge widget uib_w_25" data-uib="twitter%20bootstrap/list_item" data-ver="1"><span class="badge">Martin Paez</span>
+                                                    <h4 class="list-group-item-heading">Mario Bross</h4>
+                                                    <p class="list-group-item-text">Antonio del viso 65</p>
+                                                </a>
+                                                <a class="list-group-item allow-badge widget uib_w_26" data-uib="twitter%20bootstrap/list_item" data-ver="1"><span class="badge">Mati Stumpf</span>
+                                                    <h4 class="list-group-item-heading">Luigi Bross</h4>
+                                                    <p class="list-group-item-text">La direccion</p>
+                                                </a>
+
+                                            </div>
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" id="clientes-nuevos" class="col uib_col_22 tab-pane fade" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <div class="table-thing widget uib_w_28 d-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
+                                                <label class="narrow-control label-inline" for="add-client-name">Cliente:</label>
+                                                <input class="wide-control form-control default" type="text" placeholder="Nombre o Razon Social" id="add-client-name">
+                                            </div>
+                                            <div class="table-thing widget uib_w_29 d-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
+                                                <label class="narrow-control label-inline" for="add-client-address">Dirección:</label>
+                                                <input class="wide-control form-control default" type="text" id="add-client-address">
+                                            </div>
+                                            <div class="table-thing widget uib_w_30 d-margins" data-uib="twitter%20bootstrap/text_area" data-ver="1">
+                                                <label class="narrow-control label-inline">Comentario:</label>
+                                                <textarea rows="2" class="wide-control form-control" wrap="soft" id="add-client-comment"></textarea>
+                                            </div>
+                                            <button class="btn widget uib_w_31 d-margins btn-success" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn-add-client"><i class="fa fa-save" data-position="icon only"></i>
+                                            </button>
+
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <span class="uib_shim"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </body>
+    <script type="application/javascript" src="js/app.js"></script>
+
+</html>
