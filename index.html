@@ -59,7 +59,7 @@ firebase.initializeApp(config);
 		<div class="z-depth-5">
 			<p class="center">Debes ingresar para poder comprar</p>
 			<div class="row">
-				<div class="col s12">
+				<div class="col s12" id="login">
 					<div class="row">       
 						<div class="input-field col s6">
 						    &nbsp;&nbsp;&nbsp;
@@ -75,10 +75,14 @@ firebase.initializeApp(config);
 						</div>
 					</div>
 					&nbsp;&nbsp;&nbsp;
-					<center><button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in" name="signin">Sign In</button></center>
+					<center><button  class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in" name="signin">Sign In</button></center>
           			&nbsp;&nbsp;&nbsp;
 					<center><button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup" >Sign Up</button></center><br>
+					
 					<br>
+				</div>
+				<div id="logout">
+					<center><button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-out" name="signup" >Sign out</button></center><br>
 				</div>
 			</div>
 		</div>
@@ -90,6 +94,8 @@ firebase.initializeApp(config);
 <script type="text/javascript" src="js/scripts.js"></script>s
 <script>
 	
+
+
 function toggleSignIn() {
       if (firebase.auth().currentUser) {
       	console.log("entro al IF")
@@ -122,12 +128,12 @@ function toggleSignIn() {
             alert(errorMessage);
           }
           console.log(error);
-          document.getElementById('quickstart-sign-in').disabled = false;
+          
           // [END_EXCLUDE]
         });
         // [END authwithemail]
       }
-      document.getElementById('quickstart-sign-in').disabled = true;
+      
     }
 
     /**
@@ -161,55 +167,52 @@ function toggleSignIn() {
       });
       // [END createwithemail]
     }
-function initApp() {
+
       // Listening for auth state changes.
       // [START authstatelistener]
       console.log("entro al initApp");
       firebase.auth().onAuthStateChanged(function(user) {
-        // [START_EXCLUDE silent]
-        // [END_EXCLUDE]
-        console.log("Cambio usuario");
+     
+        console.log("Cambio usuario"+ user);
         if (user) {
-     		 
-        	console.log(user);
-          // User is signed in.
-          var displayName = user.displayName;
-          var email = user.email;
-          var emailVerified = user.emailVerified;
-          var photoURL = user.photoURL;
-          var isAnonymous = user.isAnonymous;
-          var uid = user.uid;
-          var providerData = user.providerData;
-          // [START_EXCLUDE silent]
-          document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
-          document.getElementById('quickstart-sign-in').textContent = 'Sign out';
-          document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
-          if (!emailVerified) {
-            document.getElementById('quickstart-verify-email').disabled = false;
-          }
+        	$("#logout").slideDown();
+        	$("#login").slideUp();
+        	
+          
           // [END_EXCLUDE]
         } else {
-          // User is signed out.
-          // [START_EXCLUDE silent]
-          document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
-          document.getElementById('quickstart-sign-in').textContent = 'Sign in';
-          document.getElementById('quickstart-account-details').textContent = 'null';
+        	$("#logout").slideUp();
+          	$("#login").slideDown();
+        	
+          
           // [END_EXCLUDE]
         }
         // [START_EXCLUDE silent]
-        document.getElementById('quickstart-sign-in').disabled = false;
+        //document.getElementById('quickstart-sign-in').disabled = false;
         // [END_EXCLUDE]
       });
+
+      
+
+      $("#quickstart-sign-in").on("click",function(){
+	console.log("Saliendo");
+	toggleSignIn();
+
+	console.log("Salio?");
+});
+
+      $("#quickstart-sign-out").on("click",function(){
+	console.log("Saliendo");
+	firebase.auth().signOut();
+
+	console.log("Salio?");
+});
       // [END authstatelistener]
 
-      document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
-      document.getElementById('quickstart-sign-up').addEventListener('click', handleSignUp, false);
-    }
+      
+    
 
-    window.onload = function() {
-    	initApp();
-    };
-
+    
 
     
 </script>
