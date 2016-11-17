@@ -77,7 +77,7 @@ firebase.initializeApp(config);
 					&nbsp;&nbsp;&nbsp;
 					<center><button  class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in" name="signin">Sign In</button></center>
           			&nbsp;&nbsp;&nbsp;
-					<center><button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup" >Sign Up</button></center><br>
+					<center><button onclick="handleSignUp()" class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup" >Sign Up</button></center><br>
 					
 					<br>
 				</div>
@@ -204,16 +204,7 @@ function toggleSignIn() {
       $("#quickstart-sign-out").on("click",function(){
 	console.log("Saliendo");
 	firebase.auth().signOut();
-
-	console.log("Salio?");
 });
-      // [END authstatelistener]
 
-      
-    
-
-    
-
-    
 </script>
 </html>
