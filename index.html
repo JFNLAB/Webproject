@@ -21,10 +21,10 @@ var config = {
 	GoogleAuthProvider: "Du1pewHMg125Pl2kN1_r8mu4"
 };
 firebase.initializeApp(config);
+var database=firebase.database();
 </script>
 </head>
 <body background="img/fondo.jpg">
-
 	<nav>
 		<ul id='dropdown1' class='dropdown-content'>
 			<li><a href="camaras.html">Camaras y Accesorios</a></li>
@@ -62,7 +62,14 @@ firebase.initializeApp(config);
 				<div class="col s12" id="login">
 					<div class="row">       
 						<div class="input-field col s6">
-						    &nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;
+							<input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="user" name="user" placeholder="User">
+							<label for="email">Usuario</label>
+						</div>
+					</div>
+					<div class="row">       
+						<div class="input-field col s6">
+							&nbsp;&nbsp;&nbsp;
 							<input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email">
 							<label for="email">Email</label>
 						</div>
@@ -75,9 +82,9 @@ firebase.initializeApp(config);
 						</div>
 					</div>
 					&nbsp;&nbsp;&nbsp;
-					<center><button  class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in" name="signin">Sign In</button></center>
-          			&nbsp;&nbsp;&nbsp;
-					<center><button onclick="handleSignUp()" class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup" >Sign Up</button></center><br>
+					<center><button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in" name="signin">Sign In</button></center>
+					&nbsp;&nbsp;&nbsp;
+					<center><button onclick="handleSignUp(), save()" class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup" >Sign Up</button></center><br>
 					
 					<br>
 				</div>
@@ -94,26 +101,23 @@ firebase.initializeApp(config);
 <script type="text/javascript" src="js/scripts.js"></script>s
 <script>
 	
-
-
-function toggleSignIn() {
-      if (firebase.auth().currentUser) {
-      	console.log("entro al IF")
+	function toggleSignIn() {
+		if (firebase.auth().currentUser) {
         // [START signout]
         firebase.auth().signOut();
         // [END signout]
-      } else {
-        var email = document.getElementById('email').value;
-        var password = document.getElementById('password').value;
-        console.log(email);
-        if (email.length < 4) {
-          alert('Please enter an email address.');
-          return;
-        }
-        if (password.length < 4) {
-          alert('Please enter a password.');
-          return;
-        }
+    } else {
+    	var email = document.getElementById('email').value;
+    	var password = document.getElementById('password').value;
+    	console.log(email);
+    	if (email.length < 4) {
+    		alert('Please enter an email address.');
+    		return;
+    	}
+    	if (password.length < 4) {
+    		alert('Please enter a password.');
+    		return;
+    	}
         // Sign in with email and pass.
         // [START authwithemail]
         console.log("entro");
@@ -123,33 +127,32 @@ function toggleSignIn() {
           var errorMessage = error.message;
           // [START_EXCLUDE]
           if (errorCode == 'auth/wrong-password') {
-            alert('Wrong password.');
+          	alert('Wrong password.');
           } else {
-            alert(errorMessage);
+          	alert(errorMessage);
           }
           console.log(error);
           
           // [END_EXCLUDE]
-        });
+      });
         // [END authwithemail]
-      }
-      
     }
+}
 
     /**
      * Handles the sign up button press.
      */
-    function handleSignUp() {
-      var email = document.getElementById('email').value;
-      var password = document.getElementById('password').value;
-      if (email.length < 4) {
-        alert('Please enter an email address.');
-        return;
-      }
-      if (password.length < 4) {
-        alert('Please enter a password.');
-        return;
-      }
+     function handleSignUp() {
+     	var email = document.getElementById('email').value;
+     	var password = document.getElementById('password').value;
+     	if (email.length < 4) {
+     		alert('Please enter an email address.');
+     		return;
+     	}
+     	if (password.length < 4) {
+     		alert('Please enter a password.');
+     		return;
+     	}
       // Sign in with email and pass.
       // [START createwithemail]
       firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
@@ -158,53 +161,101 @@ function toggleSignIn() {
         var errorMessage = error.message;
         // [START_EXCLUDE]
         if (errorCode == 'auth/weak-password') {
-          alert('The password is too weak.');
+        	alert('The password is too weak.');
         } else {
-          alert(errorMessage);
+        	alert(errorMessage);
         }
         console.log(error);
         // [END_EXCLUDE]
-      });
+    });
       // [END createwithemail]
-    }
+  }
 
       // Listening for auth state changes.
       // [START authstatelistener]
       console.log("entro al initApp");
       firebase.auth().onAuthStateChanged(function(user) {
-     
-        console.log("Cambio usuario"+ user);
-        if (user) {
-        	$("#logout").slideDown();
-        	$("#login").slideUp();
-        	
-          
+
+      	console.log("Cambio usuario"+ user);
+      	if (user) {
+      		$("#logout").slideDown();
+      		$("#login").slideUp();
+      		//alert("Estas logueado");
+      		salario();
+
+
           // [END_EXCLUDE]
-        } else {
-        	$("#logout").slideUp();
-          	$("#login").slideDown();
-        	
-          
+      } else {
+      	$("#logout").slideUp();
+      	$("#login").slideDown();
+
+
           // [END_EXCLUDE]
-        }
+      }
         // [START_EXCLUDE silent]
         //document.getElementById('quickstart-sign-in').disabled = false;
         // [END_EXCLUDE]
-      });
+    });
 
       
 
       $("#quickstart-sign-in").on("click",function(){
-	console.log("Saliendo");
-	toggleSignIn();
+      	console.log("Saliendo");
+      	toggleSignIn();
 
-	console.log("Salio?");
-});
+      	console.log("Salio?");
+      });
 
       $("#quickstart-sign-out").on("click",function(){
-	console.log("Saliendo");
-	firebase.auth().signOut();
-});
+      	console.log("Saliendo");
+      	firebase.auth().signOut();
+      });
+
+      function save(){
+      	console.log("Guardando");
+      	var userData = {
+      		usuario: $("#user").val(),
+      		email: $("#email").val(),
+      		salario: 100,
+      	};
+
+		// Get a key for a new Post.
+		var userKey = firebase.database().ref().child('usuarios').push().key;
+
+		// Write the new post's data simultaneously in the posts list and the user's post list.
+		var updates = {};
+		updates['/usuarios/' + userKey] = userData;  
+
+		firebase.database().ref().update(updates);
+	} 
+	 
+
+
+	function salario(){
+		console.log("buscando salario");
+		//URl de las notas
+		var qn = firebase.database().ref('usuarios/');
+		//buscamos notas
+		qn.once('value', 
+			function(usuarios){  // Si esta todo bien
+				console.log(usuarios);
+				var user = firebase.auth().currentUser;
+				
+				usuarios.forEach(function(usuario){	
+					console.log(usuario.key);
+												
+					if (user.email == usuario.val().email){
+						alert("su salario es: " + usuario.val().salario);
+					}
+
+
+				});
+			},
+			function(error){ //si hay un error
+				console.log(error);
+
+			});
+	}
 
 </script>
 </html>
