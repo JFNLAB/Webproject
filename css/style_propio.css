@@ -19,7 +19,7 @@
 
 #buscar{
 	margin-left: 20%;
-	margin-right: 25%;
+	margin-right: 30%;
 	color: black;
 }
 
@@ -48,4 +48,24 @@
 	text-align: center;
 	font-variant: small-caps;
 	font-weight: bold;
+}
+
+#quickstart-sign-up{
+	width: 90%;
+	margin: auto;
+}
+
+#quickstart-sign-in{
+	width: 90%;
+	margin: auto;
+}
+#quickstart-sign-out{
+	width: 90%;
+	margin: auto;
+}
+#saldo{
+	margin-right: 20%;
+	font-size: 14px;
+	color: black;
+
 }

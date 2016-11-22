@@ -39,9 +39,10 @@ var database=firebase.database();
 			<li class="divider"></li>
 			<li><a href="audio-video.html">Electrónica Audio y Video</a></li>
 		</ul>
-		<div class="nav-wrapper light-green">
+		<div class="nav-wrapper teal">
 			<a href="index.html" id="logo" class="brand-logo right"><img src="img/logo.png" style="width:70px;height:70px;"></img></a>
 			<a href="index.html" id="titulo" class="brand-logo right">JFN SHOP</a>
+			<a href="#!" id="saldo" class="brand-logo right"></a>
 			<ul class="leftS hide-on-med-and-down">
 				<li><a class="dropdown-button" href="#!" data-activates="dropdown1">Categorias<i class="material-icons right">arrow_drop_down</i></a></li>
 
@@ -63,33 +64,33 @@ var database=firebase.database();
 					<div class="row">       
 						<div class="input-field col s6">
 							&nbsp;&nbsp;&nbsp;
-							<input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="user" name="user" placeholder="User">
+							<input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="user" name="user">
 							<label for="email">Usuario</label>
 						</div>
 					</div>
 					<div class="row">       
 						<div class="input-field col s6">
 							&nbsp;&nbsp;&nbsp;
-							<input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email">
+							<input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email">
 							<label for="email">Email</label>
 						</div>
 					</div>
 					<div class="row">
 						<div class="input-field col s12">
 							&nbsp;&nbsp;&nbsp;
-							<input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password">
+							<input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password">
 							<label for="password">Contraseña</label>
 						</div>
 					</div>
 					&nbsp;&nbsp;&nbsp;
-					<center><button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in" name="signin">Sign In</button></center>
+					<center><button class="waves-effect waves-light btn teal" id="quickstart-sign-in" name="signin">Entrar</button></center>
 					&nbsp;&nbsp;&nbsp;
-					<center><button onclick="handleSignUp(), save()" class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup" >Sign Up</button></center><br>
+					<center><a onclick="handleSignUp(), save()" class="waves-effect waves-light btn teal" id="quickstart-sign-up" name="signup" >Registrarse</a></center><br>
 					
 					<br>
 				</div>
 				<div id="logout">
-					<center><button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-out" name="signup" >Sign out</button></center><br>
+					<center><button class="waves-effect waves-light btn teal" id="quickstart-sign-out" name="signup" >Salir</button></center><br>
 				</div>
 			</div>
 		</div>
@@ -209,14 +210,16 @@ var database=firebase.database();
       $("#quickstart-sign-out").on("click",function(){
       	console.log("Saliendo");
       	firebase.auth().signOut();
+      	document.getElementById("saldo").innerHTML=("")
       });
 
       function save(){
+      	var saldo = Math.floor((Math.random() * 1000) + 1);
       	console.log("Guardando");
       	var userData = {
       		usuario: $("#user").val(),
       		email: $("#email").val(),
-      		salario: 100,
+      		salario: saldo,
       	};
 
 		// Get a key for a new Post.
@@ -245,7 +248,7 @@ var database=firebase.database();
 					console.log(usuario.key);
 												
 					if (user.email == usuario.val().email){
-						alert("su salario es: " + usuario.val().salario);
+					document.getElementById("saldo").innerHTML=("<i class='material-icons left'>payment</i> $"+usuario.val().salario)	
 					}
 
 
@@ -256,6 +259,5 @@ var database=firebase.database();
 
 			});
 	}
-
 </script>
 </html>
