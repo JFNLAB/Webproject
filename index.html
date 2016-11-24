@@ -6,23 +6,17 @@
 	<link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
 	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link href="css/style_propio.css" type="text/css" rel="stylesheet" />
-	<title>Compras y Ventas</title>
+	<script src="lib/jquery-2.2.4.min.js"></script>
+	<script src="lib/materialize/materialize.min.js"></script>
 
-
+	<script src="js/scripts.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
 	<script>
 // Initialize Firebase
-var config = {
-	apiKey: "AIzaSyAeY5ekmTdQKT5nQj_BFdO_t4l9g1gw1CQ",
-	authDomain: "just-for-now-shop.firebaseapp.com",
-	databaseURL: "https://just-for-now-shop.firebaseio.com",
-	storageBucket: "just-for-now-shop.appspot.com",
-	messagingSenderId: "309599821973",
-	GoogleAuthProvider: "Du1pewHMg125Pl2kN1_r8mu4"
-};
-firebase.initializeApp(config);
-var database=firebase.database();
+initFirebase();	
 </script>
+<title>Compras y Ventas</title>
+
 </head>
 <body background="img/fondo.jpg">
 	<nav>
@@ -43,6 +37,7 @@ var database=firebase.database();
 			<a href="index.html" id="logo" class="brand-logo right"><img src="img/logo.png" style="width:70px;height:70px;"></img></a>
 			<a href="index.html" id="titulo" class="brand-logo right">JFN SHOP</a>
 			<a href="#!" id="saldo" class="brand-logo right"></a>
+			<a href="#!" id="nom_user" class="brand-logo right"></a>
 			<ul class="leftS hide-on-med-and-down">
 				<li><a class="dropdown-button" href="#!" data-activates="dropdown1">Categorias<i class="material-icons right">arrow_drop_down</i></a></li>
 
@@ -58,7 +53,8 @@ var database=firebase.database();
 
 	<div class="login"> 
 		<div class="z-depth-5">
-			<p class="center">Debes ingresar para poder comprar</p>
+			<p id="mensaje" class="center">Debes ingresar para poder comprar</p>
+
 			<div class="row">
 				<div class="col s12" id="login">
 					<div class="row">       
@@ -89,6 +85,7 @@ var database=firebase.database();
 					
 					<br>
 				</div>
+
 				<div id="logout">
 					<center><button class="waves-effect waves-light btn teal" id="quickstart-sign-out" name="signup" >Salir</button></center><br>
 				</div>
@@ -97,167 +94,138 @@ var database=firebase.database();
 	</div>
 
 </body>
-<script src="lib/jquery-2.2.4.min.js"></script>
-<script src="lib/materialize/materialize.min.js"></script>
-<script type="text/javascript" src="js/scripts.js"></script>s
-<script>
+<script type="text/javascript">
 	
 	function toggleSignIn() {
 		if (firebase.auth().currentUser) {
-        // [START signout]
-        firebase.auth().signOut();
-        // [END signout]
-    } else {
-    	var email = document.getElementById('email').value;
-    	var password = document.getElementById('password').value;
-    	console.log(email);
-    	if (email.length < 4) {
-    		alert('Please enter an email address.');
-    		return;
-    	}
-    	if (password.length < 4) {
-    		alert('Please enter a password.');
-    		return;
-    	}
-        // Sign in with email and pass.
-        // [START authwithemail]
-        console.log("entro");
-        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // [START_EXCLUDE]
-          if (errorCode == 'auth/wrong-password') {
-          	alert('Wrong password.');
-          } else {
-          	alert(errorMessage);
-          }
-          console.log(error);
-          
-          // [END_EXCLUDE]
-      });
-        // [END authwithemail]
-    }
+		// [START signout]
+		firebase.auth().signOut();
+		// [END signout]
+	} else {
+		var email = document.getElementById('email').value;
+		var password = document.getElementById('password').value;
+		console.log(email);
+		if (email.length < 4) {
+			alert('Please enter an email address.');
+			return;
+		}
+		if (password.length < 4) {
+			alert('Please enter a password.');
+			return;
+		}
+		// Sign in with email and pass.
+		// [START authwithemail]
+		console.log("entro");
+		firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+		  // Handle Errors here.
+		  var errorCode = error.code;
+		  var errorMessage = error.message;
+		  // [START_EXCLUDE]
+		  if (errorCode == 'auth/wrong-password') {
+			alert('Wrong password.');
+		  } else {
+			alert(errorMessage);
+		  }
+		  console.log(error);
+		  
+		  // [END_EXCLUDE]
+	  });
+		// [END authwithemail]
+	}
 }
 
-    /**
-     * Handles the sign up button press.
-     */
-     function handleSignUp() {
-     	var email = document.getElementById('email').value;
-     	var password = document.getElementById('password').value;
-     	if (email.length < 4) {
-     		alert('Please enter an email address.');
-     		return;
-     	}
-     	if (password.length < 4) {
-     		alert('Please enter a password.');
-     		return;
-     	}
-      // Sign in with email and pass.
-      // [START createwithemail]
-      firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // [START_EXCLUDE]
-        if (errorCode == 'auth/weak-password') {
-        	alert('The password is too weak.');
-        } else {
-        	alert(errorMessage);
-        }
-        console.log(error);
-        // [END_EXCLUDE]
-    });
-      // [END createwithemail]
+	/**
+	 * Handles the sign up button press.
+	 */
+	 function handleSignUp() {
+		var email = document.getElementById('email').value;
+		var password = document.getElementById('password').value;
+		if (email.length < 4) {
+			alert('Please enter an email address.');
+			return;
+		}
+		if (password.length < 4) {
+			alert('Please enter a password.');
+			return;
+		}
+	  // Sign in with email and pass.
+	  // [START createwithemail]
+	  firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+		// Handle Errors here.
+		var errorCode = error.code;
+		var errorMessage = error.message;
+		// [START_EXCLUDE]
+		if (errorCode == 'auth/weak-password') {
+			alert('The password is too weak.');
+		} else {
+			alert(errorMessage);
+		}
+		console.log(error);
+		// [END_EXCLUDE]
+	});
+	  // [END createwithemail]
   }
 
-      // Listening for auth state changes.
-      // [START authstatelistener]
-      console.log("entro al initApp");
-      firebase.auth().onAuthStateChanged(function(user) {
+	  // Listening for auth state changes.
+	  // [START authstatelistener]
+	  console.log("entro al initApp");
+	  firebase.auth().onAuthStateChanged(function(user) {
 
-      	console.log("Cambio usuario"+ user);
-      	if (user) {
-      		$("#logout").slideDown();
-      		$("#login").slideUp();
-      		//alert("Estas logueado");
-      		salario();
-
-
-          // [END_EXCLUDE]
-      } else {
-      	$("#logout").slideUp();
-      	$("#login").slideDown();
+		console.log("Cambio usuario"+ user);
+		if (user) {
+			$("#logout").slideDown();
+			$("#login").slideUp();
+		  //alert("Estas logueado");
+		  salario();
 
 
-          // [END_EXCLUDE]
-      }
-        // [START_EXCLUDE silent]
-        //document.getElementById('quickstart-sign-in').disabled = false;
-        // [END_EXCLUDE]
-    });
-
-      
-
-      $("#quickstart-sign-in").on("click",function(){
-      	console.log("Saliendo");
-      	toggleSignIn();
-
-      	console.log("Salio?");
-      });
-
-      $("#quickstart-sign-out").on("click",function(){
-      	console.log("Saliendo");
-      	firebase.auth().signOut();
-      	document.getElementById("saldo").innerHTML=("")
-      });
-
-      function save(){
-      	var saldo = Math.floor((Math.random() * 1000) + 1);
-      	console.log("Guardando");
-      	var userData = {
-      		usuario: $("#user").val(),
-      		email: $("#email").val(),
-      		salario: saldo,
-      	};
-
-		// Get a key for a new Post.
-		var userKey = firebase.database().ref().child('usuarios').push().key;
-
-		// Write the new post's data simultaneously in the posts list and the user's post list.
-		var updates = {};
-		updates['/usuarios/' + userKey] = userData;  
-
-		firebase.database().ref().update(updates);
-	} 
-	 
+		  // [END_EXCLUDE]
+	  } else {
+		$("#logout").slideUp();
+		$("#login").slideDown();
 
 
-	function salario(){
-		console.log("buscando salario");
-		//URl de las notas
-		var qn = firebase.database().ref('usuarios/');
-		//buscamos notas
-		qn.once('value', 
-			function(usuarios){  // Si esta todo bien
-				console.log(usuarios);
-				var user = firebase.auth().currentUser;
-				
-				usuarios.forEach(function(usuario){	
-					console.log(usuario.key);
-												
-					if (user.email == usuario.val().email){
-					document.getElementById("saldo").innerHTML=("<i class='material-icons left'>payment</i> $"+usuario.val().salario)	
-					}
+		  // [END_EXCLUDE]
+	  }
+		// [START_EXCLUDE silent]
+		//document.getElementById('quickstart-sign-in').disabled = false;
+		// [END_EXCLUDE]
+	});
 
+	  
 
-				});
-			},
-			function(error){ //si hay un error
-				console.log(error);
+	  $("#quickstart-sign-in").on("click",function(){ 	
+		console.log("Saliendo");
+		toggleSignIn();
 
-			});
-	}
+	  });
+	  
+
+	  $("#quickstart-sign-out").on("click",function(){
+		console.log("Saliendo");
+		firebase.auth().signOut();
+		document.getElementById("saldo").innerHTML=("")
+		document.getElementById("nom_user").innerHTML=("")
+		document.getElementById("mensaje").innerHTML=("Debes ingresar para poder comprar")
+	  });
+
+	  function save(){
+		var saldo = Math.floor((Math.random() * 1000) + 1);
+		console.log("Guardando");
+		var userData = {
+			usuario: $("#user").val(),
+			email: $("#email").val(),
+			salario: saldo,
+		};
+
+	// Get a key for a new Post.
+	var userKey = firebase.database().ref().child('usuarios').push().key;
+
+	// Write the new post's data simultaneously in the posts list and the user's post list.
+	var updates = {};
+	updates['/usuarios/' + userKey] = userData;  
+
+	firebase.database().ref().update(updates);
+} 
 </script>
 </html>

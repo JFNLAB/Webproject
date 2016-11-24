@@ -65,6 +65,14 @@
 }
 #saldo{
 	margin-right: 20%;
+	margin-top: -1%;
+	font-size: 14px;
+	color: black;
+
+}
+#nom_user{
+	margin-top: 1.5%;
+	margin-right: 20%;
 	font-size: 14px;
 	color: black;
 

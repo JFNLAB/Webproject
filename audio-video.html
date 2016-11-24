@@ -5,6 +5,11 @@
 		<link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link href="css/style_propio.css" type="text/css" rel="stylesheet" />
+		<script src="lib/jquery-2.2.4.min.js"></script>
+		<script src="lib/materialize/materialize.min.js"></script>
+		<script src="js/scripts.js"></script>
+		<script>initFirebase();</script>
+		<script>salario();</script>
 
 	</head>
 	<body>
@@ -23,9 +28,11 @@
 				<li class="divider"></li>
 				<li><a href="audio-video.html">Electrónica Audio y Video</a></li>
 			</ul>
-			<div class="nav-wrapper light-green">
+			<div class="nav-wrapper teal">
 				<a href="index.html" id="logo" class="brand-logo right"><img src="img/logo.png" style="width:70px;height:70px;"></img></a>
 			<a href="index.html" id="titulo" class="brand-logo right">JFN SHOP</a>
+			<a href="#!" id="saldo" class="brand-logo right"></a>
+			<a href="#!" id="nom_user" class="brand-logo right"></a>
 			<ul class="leftS hide-on-med-and-down">
 				<li><a class="dropdown-button" href="#!" data-activates="dropdown1">Categorias<i class="material-icons right">arrow_drop_down</i></a></li>
 			</ul>
@@ -83,6 +90,5 @@
 			</div>
 		</div>
 	</body>
-	<script src="lib/jquery-2.2.4.min.js"></script>
-	<script src="lib/materialize/materialize.min.js"></script>
+
 </html>
