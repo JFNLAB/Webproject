@@ -1,12 +1,24 @@
 <html>
 	<head>
-		<meta charset="UTF-8"> 
-		<link href="lib/materialize/materialize.min.css" type="text/css" rel="stylesheet" />
-		<link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
-		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-		<link href="css/style_propio.css" type="text/css" rel="stylesheet"/>
-	</head>
+	<meta charset="UTF-8"> 
+	<link href="lib/materialize/materialize.min.css" type="text/css" rel="stylesheet" />
+	<link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+	<link href="css/style_propio.css" type="text/css" rel="stylesheet" />
+	<script src="lib/jquery-2.2.4.min.js"></script>
+	<script src="lib/materialize/materialize.min.js"></script>
+
+	<script src="js/scripts.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+	<script>
+	initFirebase();
+	salario();
+</script>
+
+</head>
 	<body>
+
 		<nav>
 			<ul id='dropdown1' class='dropdown-content'>
 				<li><a href="camaras.html">Camaras y Accesorios</a></li>
@@ -21,22 +33,23 @@
 				<li class="divider"></li>
 				<li><a href="audio-video.html">Electrónica Audio y Video</a></li>
 			</ul>
-			<div class="nav-wrapper light-green">
-				<a href="index.html" id="logo" class="brand-logo right"><img src="img/logo.png" style="width:70px;height:70px;"></a>
-				<a href="index.html" id="titulo" class="brand-logo right">JFN SHOP</a>
-				<ul class="leftS hide-on-med-and-down">
-					<li><a class="dropdown-button" href="#!" data-activates="dropdown1">Categorias<i class="material-icons right">arrow_drop_down</i></a></li>
-				</ul>
-				<div class="input-field" id= "buscar">
-					<input id="search" type="search" required>
-					<label for="search"><i class="material-icons">search</i></label>
-					<i class="material-icons">close</i>
-				</div>
+			<div class="nav-wrapper teal">
+				<a href="index.html" id="logo" class="brand-logo right"><img src="img/logo.png" style="width:70px;height:70px;"></img></a>
+			<a href="index.html" id="titulo" class="brand-logo right">JFN SHOP</a>
+			<a href="#!" id="saldo" class="brand-logo right"></a>
+			<a href="#!" id="nom_user" class="brand-logo right"></a>
+			<ul class="leftS hide-on-med-and-down">
+				<li><a class="dropdown-button" href="#!" data-activates="dropdown1">Categorias<i class="material-icons right">arrow_drop_down</i></a></li>
+			</ul>
+			<div class="input-field" id= "buscar">
+				<input id="search" type="search" required>
+				<label for="search"><i class="material-icons">search</i></label>
+				<i class="material-icons">close</i>
+			</div>
 
 
-
-				</nav>
-			<h1>Cámaras y accesorios</h1>
+		</nav>
+		<h1>Cámaras y accesorios</h1>
 			<div class="row">
 				<div class="col s4">
 					<div class="card medium">
@@ -143,15 +156,5 @@
 				</div>
 
 			</div>
-			</body>
-
-			</script>
-			<script type="text/javascript">
-				function buy(){
-					var user =firebase.currentUser();
-					console.log(user);
-				}
-			</script>
-		<script src="lib/jquery-2.2.4.min.js"></script>
-		<script src="lib/materialize/materialize.min.js"></script>
-		</html>
+	</body>
+</html>
