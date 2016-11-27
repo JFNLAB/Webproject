@@ -45,20 +45,52 @@ var database=firebase.database();
 	      });
 	  }
 
-  function addCarrito(){
-  		var producto = document.getElementById("precio").value;
-      console.log(producto);
-  		var qn = firebase.database().ref('usuarios/');
-  		qn.once('value', 
-      	function(usuarios){  // Si esta todo bien
-        var user = firebase.auth().currentUser;
-        
-        usuarios.forEach(function(usuario){                         
-          if (user.email == usuario.val().email){
-  			    var saldo = usuario.val().salario;
-  			    console.log(producto + " ..." + saldo);
+function addCarrito(nombre){
+  	var qp = firebase.database().ref('/productos');
+  	var user = firebase.auth().currentUser;
+  	var email = user.email;
+  	qp.once('value',
+  		function(productos){
+  			productos.forEach(function(producto){
+  				if (producto.val().prod==nombre){
+  					comprar(email,producto.val().precio);
+  				}
+  			})
+  		});
+}
 
-  		}
-		});
-	});
+function comprar(email,precio){
+	 var qn = firebase.database().ref('/usuarios');
+	    //buscamos notas
+	    qn.once('value', 
+	      function(usuarios){  // Si esta todo bien
+	        console.log(usuarios);
+	        var user = firebase.auth().currentUser;
+	        
+	        usuarios.forEach(function(usuario){ 
+	          console.log(usuario.key);
+	                        
+	          if (email == usuario.val().email){
+	          var newSaldo = (usuario.val().salario - precio);
+	          var key = usuario.key;
+	          var updates = {};
+				console.log("ACA " + usuario.key);
+				var update = firebase.database().ref().child('usuarios/'+ usuario.key);
+				update.update({
+				  "salario": newSaldo
+				});
+
+	          }
+	          salario();
+
+
+	        });
+	      },
+	      function(error){ //si hay un error
+	        console.log(error);
+
+	      });
+	// Write the new post's data simultaneously in the posts list and the user's post list.
+	//var userKey = firebase.database().ref().child('usuarios').push().key;
+
 }
