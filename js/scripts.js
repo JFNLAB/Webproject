@@ -53,13 +53,14 @@ function addCarrito(nombre){
   		function(productos){
   			productos.forEach(function(producto){
   				if (producto.val().prod==nombre){
-  					comprar(email,producto.val().precio);
+  					comprar(email,producto.val().precio, producto.val().prod);
+
   				}
   			})
   		});
 }
 
-function comprar(email,precio){
+function comprar(email,precio, prod){
 	 var qn = firebase.database().ref('/usuarios');
 	    //buscamos notas
 	    qn.once('value', 
@@ -78,7 +79,16 @@ function comprar(email,precio){
 				var update = firebase.database().ref().child('usuarios/'+ usuario.key);
 				update.update({
 				  "salario": newSaldo
-				});
+		
+						});
+						var link = "mailto:"+email+""
+		             + "?cc=noreply@just-for-now-shop.firebaseapp.com"
+		             + "&subject=" + escape("Compra realizada con exito")
+		             + "&body=" + escape("Agradecemos su compra de " + prod)
+		    ;
+		    console.log('mail enviado a '+email);
+
+		    window.location.href = link;
 
 	          }
 	          salario();
