@@ -53,6 +53,7 @@ function addCarrito(nombre){
   		function(productos){
   			productos.forEach(function(producto){
   				if (producto.val().prod==nombre){
+  					console.log('se encontro el producto');
   					comprar(email,producto.val().precio, producto.val().prod);
 
   				}
