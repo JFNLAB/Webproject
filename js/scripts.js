@@ -53,6 +53,7 @@ function addCarrito(nombre){
   		function(productos){
   			productos.forEach(function(producto){
   				if (producto.val().prod==nombre){
+  					console.log('se encontro el producto');
   					comprar(email,producto.val().precio, producto.val().prod);
   					var vector = [
 					    producto.val().prod,
@@ -86,15 +87,6 @@ function comprar(email,precio, prod){
 				  "salario": newSaldo
 		
 						});
-						var link = "mailto:"+email+""
-		             + "?cc=noreply@just-for-now-shop.firebaseapp.com"
-		             + "&subject=" + escape("Compra realizada con exito")
-		             + "&body=" + escape("Agradecemos su compra de " + prod)
-		    ;
-		    console.log('mail enviado a '+email);
-
-		    window.location.href = link;
-
 	          }
 	          salario();
 
