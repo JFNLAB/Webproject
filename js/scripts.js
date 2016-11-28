@@ -54,6 +54,11 @@ function addCarrito(nombre){
   			productos.forEach(function(producto){
   				if (producto.val().prod==nombre){
   					comprar(email,producto.val().precio, producto.val().prod);
+  					var vector = [
+					    producto.val().prod,
+					    producto.val().precio
+					];
+  					verTabla(vector); 
 
   				}
   			})
@@ -102,5 +107,24 @@ function comprar(email,precio, prod){
 	      });
 	// Write the new post's data simultaneously in the posts list and the user's post list.
 	//var userKey = firebase.database().ref().child('usuarios').push().key;
+
+
+}
+
+function verTabla(vector){
+	var tabla = document.getElementById("tabla");
+	var row = tabla.insertRow(0);
+	var cell1 = row.insertCell(0);
+	var prod= vector [0];
+	var precio= vector [1];
+	
+
+	/*
+	var tabla = document.getElementById("tabla");
+	var row = table.insertRow(0);
+	var cell1 = row.insertCell(0);
+	cell1.innerHTML = prod;
+	cell2.innerHTML = precio;
+	*/
 
 }
