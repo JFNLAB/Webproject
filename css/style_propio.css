@@ -77,3 +77,9 @@
 	color: black;
 
 }
+#comprar{
+    position:absolute;
+    transition: .5s ease;
+    top: 1400%;
+    left: 88%;
+}

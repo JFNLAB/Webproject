@@ -1,3 +1,5 @@
+var vector=[];
+
 function initFirebase(){
 	console.log("iniciando db");
 	src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js";
@@ -55,14 +57,10 @@ function addCarrito(nombre){
   				if (producto.val().prod==nombre){
   					console.log('se encontro el producto');
   					comprar(email,producto.val().precio, producto.val().prod);
-  					var vector = [
-					    producto.val().prod,
-					    producto.val().precio
-					];
-  					verTabla(vector); 
-
-  				}
-  			})
+                    vector.push(["" + producto.val().prod, producto.val().precio]);
+                    
+                }
+  			});
   		});
 }
 
@@ -102,21 +100,51 @@ function comprar(email,precio, prod){
 
 
 }
+function showCart(){
+    var vector= JSON.parse(localStorage.getItem('vector'));
+    var total = 0;
+    var tablaG = document.createElement("DIV");
+    tablaG.className="collection";
+    for (i=0; i<vector.length;i++){
+            console.log("show cart 2");
 
-function verTabla(vector){
-	var tabla = document.getElementById("tabla");
-	var row = tabla.insertRow(0);
-	var cell1 = row.insertCell(0);
-	var prod= vector [0];
-	var precio= vector [1];
-	
-
-	/*
-	var tabla = document.getElementById("tabla");
-	var row = table.insertRow(0);
-	var cell1 = row.insertCell(0);
-	cell1.innerHTML = prod;
-	cell2.innerHTML = precio;
-	*/
-
+        var tabla = document.createElement("A");
+        tabla.className="collection-item";
+        var sArray = vector[i];
+        var boleano = true;                       
+        for (b=0; b<sArray.length;b++){
+            console.log("show cart 3");
+            if (boleano){
+                var nombre = document.createTextNode(sArray[b]);
+                tabla.appendChild(nombre);
+                boleano=false;
+            }else{
+                var precio = document.createElement("SPAN");
+                var tPrecio = document.createTextNode("$ "+sArray[b]);
+                precio.appendChild(tPrecio);
+                precio.className="badge";
+                tabla.appendChild(precio);
+                boleano=true;
+                tablaG.appendChild(tabla);
+                total+=sArray[b];
+            }
 }
+        
+} 
+    var final = document.createElement("A");
+    final.className="collection-item";
+    final.appendChild(document.createTextNode("Total "));
+    var precioF = document.createElement("SPAN");
+    precioF.appendChild(document.createTextNode("$ "+total));
+    precioF.className="badge";
+    final.appendChild(precioF);
+    tablaG.appendChild(document.createElement("BR"));
+    tablaG.appendChild(final);
+    document.body.appendChild(tablaG);
+}
+
+function saveData(){
+    localStorage.setItem("vector", JSON.stringify(vector));
+}
+
+
