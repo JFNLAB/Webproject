@@ -74,7 +74,6 @@ function comprar(email,precio, prod){
 	        
 	        usuarios.forEach(function(usuario){ 
 	          console.log(usuario.key);
-	                        
 	          if (email == usuario.val().email){
 	          var newSaldo = (usuario.val().salario - precio);
 	          var key = usuario.key;
@@ -83,7 +82,8 @@ function comprar(email,precio, prod){
 				var update = firebase.database().ref().child('usuarios/'+ usuario.key);
 				update.update({
 				  "salario": newSaldo
-		
+                
+        
 						});
 	          }
 	          salario();
