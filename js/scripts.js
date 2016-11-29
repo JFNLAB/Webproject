@@ -148,7 +148,11 @@ function showCart(){
 }
 
 function saveData(){
-    localStorage.setItem("vector", JSON.stringify(vector));
+	var vectorF= JSON.parse(localStorage.getItem('vector'));
+	for(a=0;a<vector.length;a++){
+		vectorF.push(vector[a]);
+	}
+    localStorage.setItem("vector", JSON.stringify(vectorF));
 }
 
 
