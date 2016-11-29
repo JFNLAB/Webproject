@@ -19,7 +19,7 @@
 <title>Compras y Ventas</title>
 
 </head>
-<body background="img/fondo.jpg">
+<body background="img/fondo.jpg" onpageshow="showCart()" onended="saveData()">
 	<nav>
 		<ul id='dropdown1' class='dropdown-content'>
 			<li><a href="camaras.html">Camaras y Accesorios</a></li>
@@ -34,6 +34,7 @@
 			<li class="divider"></li>
 			<li><a href="audio-video.html">Electrónica Audio y Video</a></li>
 		</ul>
+        
 		<div class="nav-wrapper teal">
 			<a href="index.html" id="logo" class="brand-logo right"><img src="img/logo.png" style="width:70px;height:70px;"></img></a>
 			<a href="index.html" id="titulo" class="brand-logo right">JFN SHOP</a>
@@ -41,32 +42,17 @@
 			<a href="#!" id="nom_user" class="brand-logo right"></a>
 			<ul class="leftS hide-on-med-and-down">
 				<li><a class="dropdown-button" href="#!" data-activates="dropdown1">Categorias<i class="material-icons right">arrow_drop_down</i></a></li>
-
+                
 			</ul>
 			<div class="input-field" id= "buscar">
 				<input id="search" type="search" required>
 				<label for="search"><i class="material-icons">search</i></label>
 				<i class="material-icons">close</i>
 			</div>
+            <a class="waves-effect waves-light btn" id= "comprar" onclick="email()">Comprar</a>
+
 		</div>
 
 	</nav>
-
-<table id="tabla">
-  <tr>
-    <td>Row1 cell1</td>
-    <td>Row1 cell2</td>
-  </tr>
-  <tr>
-    <td>Row2 cell1</td>
-    <td>Row2 cell2</td>
-  </tr>
-  <tr>
-    <td>Row3 cell1</td>
-    <td>Row3 cell2</td>
-  </tr>
-</table>
-<br>
-<button onclick="verTabla()">Ver tabla</button>
 </body>
 </html>

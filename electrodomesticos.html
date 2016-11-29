@@ -17,7 +17,7 @@
 </script>
 
 </head>
-	<body>
+	<body onpagehide="saveData()">
 
 		<nav>
 			<ul id='dropdown1' class='dropdown-content'>
@@ -59,7 +59,7 @@
 					<div class="card-content">
 						<span class="card-title activator grey-text text-darken-4">Lavaropa Drean 8.12 8Kg<i class="material-icons right">more_vert</i></span><br>
 						<span id ="precio" >$5</span>
-						<p><a href="#" onclick="addCarrito()">Añadir al carrito</a></p>
+						<p><a onclick="addCarrito('Lavarropa')" href="#">Añadir al carrito<i class="material-icons">shopping_cart</i></a></p>
 
 					</div>
 					<div class="card-reveal">
@@ -83,7 +83,7 @@
 						</div>
 						<div class="card-content">
 							<span class="card-title activator grey-text text-darken-4">Horno empotrable Longvie<i class="material-icons right">more_vert</i></span><br>
-							<p><a href="#">Añadir al carrito</a></p>
+							<p><a onclick="addCarrito('Horno')" href="#">Añadir al carrito<i class="material-icons">shopping_cart</i></a></p>
 
 						</div>
 						<div class="card-reveal">
