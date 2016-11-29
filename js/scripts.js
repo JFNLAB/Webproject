@@ -48,6 +48,8 @@ var database=firebase.database();
 	  }
 
 function addCarrito(nombre){
+	if (confirm("¿Esta seguro que desea comprar este producto?") == true) {
+
   	var qp = firebase.database().ref('/productos');
   	var user = firebase.auth().currentUser;
   	var email = user.email;
@@ -62,6 +64,8 @@ function addCarrito(nombre){
                 }
   			});
   		});
+} else {
+} 
 }
 
 function comprar(email,precio, prod){
@@ -76,7 +80,6 @@ function comprar(email,precio, prod){
 	          console.log(usuario.key);
 	          if (email == usuario.val().email){
 	          if ((usuario.val().salario)>=precio){
-	          			alert("compra realizada");
 	          	        var newSaldo = (usuario.val().salario - precio);
 	          			var key = usuario.key;
 	          			var updates = {};
@@ -108,6 +111,7 @@ function showCart(){
     var vector= JSON.parse(localStorage.getItem('vector'));
     var total = 0;
     var tablaG = document.createElement("DIV");
+    tablaG.id="tablita";
     tablaG.className="collection";
     for (i=0; i<vector.length;i++){
             console.log("show cart 2");
@@ -148,11 +152,17 @@ function showCart(){
 }
 
 function saveData(){
-	var vectorF= JSON.parse(localStorage.getItem('vector'));
-	for(a=0;a<vector.length;a++){
-		vectorF.push(vector[a]);
+	var finalV= JSON.parse(localStorage.getItem('vector'));
+	for (var i = 0; i < vector.length; i++) {
+		finalV.push(vector[i]);
 	}
-    localStorage.setItem("vector", JSON.stringify(vectorF));
+    localStorage.setItem("vector", JSON.stringify(finalV));
+}
+
+function clearData(){
+	localStorage.setItem("vector", JSON.stringify(vector));
+	document.getElementById("tablita").remove();
+	showCart();
 }
 
 
